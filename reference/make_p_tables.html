@@ -8,6 +8,7 @@
 
 The labels provided to this function are not variable names from a dataset, but rather human-readable phrases (e.g., "Math Score if in Small Class"). Long labels will be wrapped automatically when rendered using the {gt} package.
 The goal is to visually communicate which variables play which roles in your modeling. Each spanner groups columns of a shared type. Footnotes help document the rationale and context for each set of variables.
+NOTE: all table entries must be surrounded by double quotes, even numbers (Ex: "42").
 Footnotes will appear under:
 the table title (background/motivation)
 the Units (unit/time range)
@@ -27,6 +28,7 @@ Behind the scenes, these tables are generated using tibble::tribble() for easier
 
 The labels provided to this function are not variable names from a dataset, but rather human-readable phrases (e.g., "Math Score if in Small Class"). Long labels will be wrapped automatically when rendered using the {gt} package.
 The goal is to visually communicate which variables play which roles in your modeling. Each spanner groups columns of a shared type. Footnotes help document the rationale and context for each set of variables.
+NOTE: all table entries must be surrounded by double quotes, even numbers (Ex: "42").
 Footnotes will appear under:
 the table title (background/motivation)
 the Units (unit/time range)
@@ -82,6 +84,7 @@ Behind the scenes, these tables are generated using tibble::tribble() for easier
 <li><p><code>"Covariates"</code> — a set of user-specified labels (typically 3)</p></li>
 </ul><p>The <em>labels</em> provided to this function are <strong>not variable names from a dataset</strong>, but rather <strong>human-readable phrases</strong> (e.g., <code>"Math Score if in Small Class"</code>). Long labels will be wrapped automatically when rendered using the <code>{gt}</code> package.</p>
 <p>The goal is to visually communicate which variables play which roles in your modeling. Each spanner groups columns of a shared type. Footnotes help document the rationale and context for each set of variables.</p>
+<p>NOTE: all table entries must be surrounded by double quotes, even numbers (Ex: "42").</p>
 <p>Footnotes will appear under:</p><ul><li><p>the <strong>table title</strong> (background/motivation)</p></li>
 <li><p>the <strong>Units</strong> (unit/time range)</p></li>
 <li><p>the <strong>Outcome(s)</strong> (why this outcome is used)</p></li>
@@ -157,7 +160,12 @@ Behind the scenes, these tables are generated using tibble::tribble() for easier
 </ul></div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
-
+    <p>Required packages:
+This function depends on the following packages:</p><ul><li><p><code>gt</code>: for rendering the tables</p></li>
+<li><p><code>tibble</code>: for creating the data structure</p></li>
+<li><p><code>glue</code>: for dynamically constructing column names and labels</p></li>
+</ul><p>You can install them if not already installed:</p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gt"</span>, <span class="st">"tibble"</span>, <span class="st">"glue"</span><span class="op">)</span><span class="op">)</span></span></code></pre><p></p></div>
 <ul><li><p>No default values are provided for labels, other than <code>NULL</code>. If a required argument is not supplied, the function will return an error.</p></li>
 <li><p>The code chunk environments are self-contained and designed to avoid variable conflicts in the surrounding document.</p></li>
 <li><p>Labels should be kept concise but human-readable. If necessary, abbreviate.</p></li>
