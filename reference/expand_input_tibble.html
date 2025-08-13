@@ -73,10 +73,10 @@ For type "population", a list of length 2.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>For "preceptor": adds missing rows to ensure at least 3 rows, adds a "More" column
-with NA except last row contains "...".</p>
+    <p>For "preceptor": adds a third row between the last 2 rows filled with "...",
+adds a "More" column with "..." in all positions.</p>
 <p>For "population": expands each tibble similarly, then combines them with
-empty rows before, between, and after, then adds "More" column.</p>
+empty rows before, between, and after, then adds "More" column with "...".</p>
     </div>
 
     <div class="section level2">
@@ -84,34 +84,40 @@ empty rows before, between, and after, then adds "More" column.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Preceptor example</span></span></span>
 <span class="r-in"><span><span class="va">pre_tib</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span><span class="op">~</span><span class="va">Unit</span>, <span class="op">~</span><span class="va">Year</span>, <span class="op">~</span><span class="va">Outcome</span>,</span></span>
 <span class="r-in"><span>                           <span class="st">"A"</span>, <span class="st">"2020"</span>, <span class="st">"5"</span>,</span></span>
-<span class="r-in"><span>                           <span class="st">"B"</span>, <span class="st">"2021"</span>, <span class="st">"6"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                           <span class="st">"B"</span>, <span class="st">"2021"</span>, <span class="st">"6"</span>,</span></span>
+<span class="r-in"><span>                           <span class="st">"C"</span>, <span class="st">"2022"</span>, <span class="st">"7"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">expand_input_tibble</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">pre_tib</span><span class="op">)</span>, <span class="st">"preceptor"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Unit  Year  Outcome More </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> A     2020  5       ...  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> B     2021  6       ...  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> ...   ...   ...     ...  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> C     2022  7       ...  </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Population example</span></span></span>
 <span class="r-in"><span><span class="va">pop1</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span><span class="op">~</span><span class="va">Source</span>, <span class="op">~</span><span class="va">Unit</span>, <span class="op">~</span><span class="va">Year</span>,</span></span>
 <span class="r-in"><span>                       <span class="st">"S1"</span>, <span class="st">"A"</span>, <span class="st">"2020"</span>,</span></span>
-<span class="r-in"><span>                       <span class="st">"S2"</span>, <span class="st">"B"</span>, <span class="st">"2021"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                       <span class="st">"S2"</span>, <span class="st">"B"</span>, <span class="st">"2021"</span>,</span></span>
+<span class="r-in"><span>                       <span class="st">"S3"</span>, <span class="st">"C"</span>, <span class="st">"2022"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">pop2</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span><span class="op">~</span><span class="va">Source</span>, <span class="op">~</span><span class="va">Unit</span>, <span class="op">~</span><span class="va">Year</span>,</span></span>
-<span class="r-in"><span>                       <span class="st">"S1"</span>, <span class="st">"C"</span>, <span class="st">"2022"</span>,</span></span>
-<span class="r-in"><span>                       <span class="st">"S2"</span>, <span class="st">"D"</span>, <span class="st">"2023"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                       <span class="st">"S1"</span>, <span class="st">"D"</span>, <span class="st">"2023"</span>,</span></span>
+<span class="r-in"><span>                       <span class="st">"S2"</span>, <span class="st">"E"</span>, <span class="st">"2024"</span>, </span></span>
+<span class="r-in"><span>                       <span class="st">"S3"</span>, <span class="st">"F"</span>, <span class="st">"2025"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">expand_input_tibble</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">pop1</span>, <span class="va">pop2</span><span class="op">)</span>, <span class="st">"population"</span>, source <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 9 × 4</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Source Unit  Year  More </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ...    ...   ...   ...  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> S1     A     2020  ...  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> S2     B     2021  ...  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> ...    ...   ...   ...  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> ...    ...   ...   ...  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> ...    ...   ...   ...  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> S1     C     2022  ...  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> S2     D     2023  ...  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">9</span> ...    ...   ...   ...  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 10 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Source Unit  Year  More </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> ...    ...   ...   ...  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> S1     A     2020  ...  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> S2     B     2021  ...  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> ...    ...   ...   ...  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> ...    ...   ...   ...  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> ...    ...   ...   ...  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> S1     D     2023  ...  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> S2     E     2024  ...  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> S3     F     2025  ...  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> ...    ...   ...   ...  </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
